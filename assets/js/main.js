@@ -125,24 +125,51 @@ const MONK = {
   const bar  = $('#railBar');
 
   if (rail) {
+    const prevBtn = $('[data-rail="-1"]');
+    const nextBtn = $('[data-rail="1"]');
     let down = false, startX = 0, startLeft = 0, moved = 0;
 
-    const progress = () => {
-      const max = rail.scrollWidth - rail.clientWidth;
-      const ratio = max > 0 ? rail.scrollLeft / max : 0;
-      const travel = rail.clientWidth ? (bar.parentElement.clientWidth - bar.offsetWidth) : 0;
-      bar.style.transform = 'translateX(' + (ratio * travel) + 'px)';
-    };
-    progress();
-    rail.addEventListener('scroll', progress, { passive: true });
-    window.addEventListener('resize', progress);
+    const maxScroll = () => Math.max(0, rail.scrollWidth - rail.clientWidth);
 
+    // one card plus the gap it sits next to
+    function stepSize() {
+      const card = $('.card', rail);
+      if (!card) return rail.clientWidth * 0.8;
+      const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function sync() {
+      const max = maxScroll();
+      const ratio = max > 0 ? rail.scrollLeft / max : 0;
+      const travel = Math.max(0, bar.parentElement.clientWidth - bar.offsetWidth);
+      bar.style.transform = 'translateX(' + (ratio * travel) + 'px)';
+      if (prevBtn) prevBtn.disabled = rail.scrollLeft <= 1;
+      if (nextBtn) nextBtn.disabled = rail.scrollLeft >= max - 1;
+    }
+    sync();
+    rail.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    window.addEventListener('load', sync);
+
+    /* arrows */
+    [prevBtn, nextBtn].forEach(b => {
+      if (!b) return;
+      b.addEventListener('click', () => {
+        const dir = Number(b.getAttribute('data-rail'));
+        rail.scrollBy({ left: dir * stepSize(), behavior: reduced ? 'auto' : 'smooth' });
+      });
+    });
+
+    /* drag with a mouse or pen — touch keeps its native scrolling */
     rail.addEventListener('pointerdown', (e) => {
-      if (e.pointerType === 'touch') return;      // let native touch scrolling do its job
+      if (e.pointerType === 'touch') return;
+      if (e.button !== 0) return;
       down = true; moved = 0;
       startX = e.clientX;
       startLeft = rail.scrollLeft;
       rail.classList.add('is-dragging');
+      try { rail.setPointerCapture(e.pointerId); } catch (err) { /* not critical */ }
     });
 
     rail.addEventListener('pointermove', (e) => {
@@ -153,13 +180,15 @@ const MONK = {
       if (moved > 4) e.preventDefault();
     });
 
-    const release = () => {
+    function release(e) {
+      if (!down) return;
       down = false;
       rail.classList.remove('is-dragging');
-    };
+      if (e) { try { rail.releasePointerCapture(e.pointerId); } catch (err) { /* not critical */ } }
+    }
     rail.addEventListener('pointerup', release);
     rail.addEventListener('pointercancel', release);
-    rail.addEventListener('pointerleave', release);
+    window.addEventListener('blur', () => release());
 
     // swallow the click that ends a real drag
     rail.addEventListener('click', (e) => {
@@ -168,19 +197,19 @@ const MONK = {
 
     // vertical wheel scrolls the rail sideways while the pointer is over it
     rail.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-      const max = rail.scrollWidth - rail.clientWidth;
-      const next = rail.scrollLeft + e.deltaY;
-      if (next > 0 && next < max) {
-        e.preventDefault();
-        rail.scrollLeft = next;
-      }
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!delta) return;
+      const max = maxScroll();
+      const next = Math.min(max, Math.max(0, rail.scrollLeft + delta));
+      // hand the wheel back to the page once the rail has run out of room
+      if (next === rail.scrollLeft) return;
+      e.preventDefault();
+      rail.scrollLeft = next;
     }, { passive: false });
 
     rail.addEventListener('keydown', (e) => {
-      const step = rail.clientWidth * 0.6;
-      if (e.key === 'ArrowRight') { rail.scrollLeft += step; e.preventDefault(); }
-      if (e.key === 'ArrowLeft')  { rail.scrollLeft -= step; e.preventDefault(); }
+      if (e.key === 'ArrowRight') { rail.scrollBy({ left: stepSize(), behavior: 'smooth' }); e.preventDefault(); }
+      if (e.key === 'ArrowLeft')  { rail.scrollBy({ left: -stepSize(), behavior: 'smooth' }); e.preventDefault(); }
     });
   }
 

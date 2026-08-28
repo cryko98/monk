@@ -467,19 +467,19 @@ a{ color:inherit; }
 .rail{
   display:flex; gap:clamp(18px,2.6vw,34px);
   overflow-x:auto; overflow-y:hidden;
-  scroll-snap-type:x proximity;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
   padding-block:10px 34px;
   cursor:grab;
   scrollbar-width:none;
 }
 .rail::-webkit-scrollbar{ display:none; }
-.rail.is-dragging{ cursor:grabbing; scroll-snap-type:none; }
+.rail.is-dragging{ cursor:grabbing; user-select:none; }
 .rail__pad{ flex:none; width:calc((100vw - var(--wrap))/2 + var(--pad) - clamp(18px,2.6vw,34px)); min-width:var(--pad); }
 
 .card{
   flex:none; margin:0; position:relative;
   width:clamp(240px,30vw,370px);
-  scroll-snap-align:center;
 }
 .card:nth-child(even){ margin-top:clamp(20px,4vw,54px); }
 .card img{
@@ -504,11 +504,22 @@ a{ color:inherit; }
   font-family:var(--sans); font-size:.6rem; letter-spacing:.2em;
   color:var(--saffron); flex:none;
 }
-.rail__bar{ height:1px; background:var(--line-dark); position:relative; }
+.rail__foot{ display:flex; align-items:center; gap:clamp(20px,4vw,44px); }
+.rail__bar{ flex:1 1 auto; height:1px; background:var(--line-dark); position:relative; }
 .rail__bar span{
   position:absolute; left:0; top:-1px; height:3px; width:14%;
   background:var(--saffron); transition:transform .1s linear;
 }
+.rail__nav{ display:flex; gap:10px; flex:none; }
+.rail__btn{
+  display:grid; place-items:center;
+  width:46px; height:46px; padding:0; cursor:pointer;
+  background:none; border:1px solid var(--line-dark); border-radius:50%;
+  color:var(--on-dark);
+  transition:border-color .35s var(--ease), color .35s var(--ease), background .35s var(--ease), opacity .35s var(--ease);
+}
+.rail__btn:hover:not(:disabled){ background:var(--saffron); border-color:var(--saffron); color:#1B1206; }
+.rail__btn:disabled{ opacity:.28; cursor:default; }
 
 /* =========================================================
    PATH (paper)

@@ -230,7 +230,7 @@
       <header class="sec__head" data-reveal>
         <p class="eyebrow"><span class="eyebrow__line"></span>From the Monastery Wall</p>
         <h2 class="sec__title">Scenes</h2>
-        <p class="sec__lead">Drag sideways. Nothing here is in a hurry.</p>
+        <p class="sec__lead">Drag sideways, or use the arrows. Nothing here is in a hurry.</p>
       </header>
     </div>
 
@@ -294,8 +294,16 @@
       <span class="rail__pad" aria-hidden="true"></span>
     </div>
 
-    <div class="wrap">
+    <div class="wrap rail__foot">
       <div class="rail__bar" aria-hidden="true"><span id="railBar"></span></div>
+      <div class="rail__nav">
+        <button class="rail__btn" type="button" data-rail="-1" aria-label="Previous scenes" aria-controls="rail">
+          <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14.5 5 7.5 12l7 7"/></svg>
+        </button>
+        <button class="rail__btn" type="button" data-rail="1" aria-label="Next scenes" aria-controls="rail">
+          <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9.5 5l7 7-7 7"/></svg>
+        </button>
+      </div>
     </div>
   </section>
 
