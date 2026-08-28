@@ -1,0 +1,10 @@
+# original full-size source renders (kept locally, not in the repo)
+hf_*.png
+monklogo.png
+
+# os / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
