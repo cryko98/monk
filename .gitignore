@@ -8,3 +8,6 @@ desktop.ini
 .DS_Store
 .vscode/
 .idea/
+
+# local tooling
+.claude/
