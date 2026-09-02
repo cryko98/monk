@@ -20,12 +20,13 @@ Everything that changes per launch lives at the top of `assets/js/main.js`:
 ```js
 const MONK = {
   ca:       'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // real mint address
-  telegram: 'https://t.me/'                                  // real Telegram invite
+  telegram: 'https://t.me/MONKONSOL'
 };
 ```
 
-Both values are injected into every place they appear (hero, contract section,
-footer, nav icon), so this is the only file to touch.
+The contract address is still a placeholder. Both values are injected into every
+place they appear (hero, contract section, footer, nav icon), so this is the only
+file to touch.
 
 Also worth checking before launch:
 

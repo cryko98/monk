@@ -5,8 +5,8 @@
 const MONK = {
   // Solana contract address (placeholder — replace with the real mint)
   ca: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-  // Telegram invite URL (placeholder — replace with the real group or channel)
-  telegram: 'https://t.me/'
+  // Telegram group
+  telegram: 'https://t.me/MONKONSOL'
 };
 
 (function () {
