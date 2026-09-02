@@ -3,8 +3,8 @@
    Edit the two values below and the whole site updates.
    ========================================================= */
 const MONK = {
-  // Solana contract address (placeholder — replace with the real mint)
-  ca: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  // Solana mint address
+  ca: 'JAuN3RKZR9KSKdmBCH83VXGmTvkbobuLrawZ5G3upump',
   // Telegram group
   telegram: 'https://t.me/MONKONSOL'
 };

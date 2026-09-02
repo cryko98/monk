@@ -13,20 +13,20 @@ assets/
   img/            optimised images + favicons
 ```
 
-## Things you need to fill in
+## Configuration
 
 Everything that changes per launch lives at the top of `assets/js/main.js`:
 
 ```js
 const MONK = {
-  ca:       'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // real mint address
+  ca:       'JAuN3RKZR9KSKdmBCH83VXGmTvkbobuLrawZ5G3upump',
   telegram: 'https://t.me/MONKONSOL'
 };
 ```
 
-The contract address is still a placeholder. Both values are injected into every
-place they appear (hero, contract section, footer, nav icon), so this is the only
-file to touch.
+Both values are injected into every place they appear (hero, contract section,
+footer, nav icon), so this is the only file to touch. `index.html` carries the
+same contract address inline as a no-JavaScript fallback — change both together.
 
 Also worth checking before launch:
 
