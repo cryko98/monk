@@ -5,8 +5,8 @@
 const MONK = {
   // Solana contract address (placeholder — replace with the real mint)
   ca: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-  // X (Twitter) profile URL (placeholder — replace with the real profile)
-  x: 'https://x.com/'
+  // Telegram invite URL (placeholder — replace with the real group or channel)
+  telegram: 'https://t.me/'
 };
 
 (function () {
@@ -18,7 +18,7 @@ const MONK = {
 
   /* ---------- inject config ---------- */
   $$('[data-ca]').forEach(el => { el.textContent = MONK.ca; });
-  $$('[data-x]').forEach(el => { el.setAttribute('href', MONK.x); });
+  $$('[data-tg]').forEach(el => { el.setAttribute('href', MONK.telegram); });
 
   /* ---------- sticky nav ---------- */
   const nav = $('#nav');

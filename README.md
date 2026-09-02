@@ -19,8 +19,8 @@ Everything that changes per launch lives at the top of `assets/js/main.js`:
 
 ```js
 const MONK = {
-  ca: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // real mint address
-  x:  'https://x.com/'                                 // real X profile URL
+  ca:       'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // real mint address
+  telegram: 'https://t.me/'                                  // real Telegram invite
 };
 ```
 
